@@ -805,13 +805,3 @@ This middleware:
 | **Login Returns** | Both `AccessToken` and `RefreshToken` in `TokenResponseDto` |
 | **Token Validation** | Via JWT middleware in `Program.cs` |
 | **Secure Endpoint** | Using `[Authorize]` attribute |
-
----
-
-Let me know if you want:
-
-- Example of sending token from a front-end
-- Best practice for securing refresh tokens (e.g., HttpOnly cookies)
-- Logout endpoint (revoke refresh token)
-
-You're on the right track 🔥
