@@ -30,13 +30,24 @@ namespace JWTAuthNet9.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(UserDto request)
+        public async Task<ActionResult<TokenResponseDto>> Login(UserDto request)
         {
-            var token = await authService.LoginAsync(request);
-            if (token is null)
+            var result = await authService.LoginAsync(request);
+            if (result is null)
                 return BadRequest("Invalid username or password");
 
-            return Ok(token);
+            return Ok(result);
+        }
+
+        [HttpPost("refresh-token")]
+        public async Task<ActionResult<TokenResponseDto>> RefreshToken(RefreshTokenRequestDto request)
+        {
+            var result = await authService.RefreshTokenAsync(request);
+            if (result is null || result.AccessToken == null || result.RefreshToken == null)
+            {
+                return Unauthorized("Invalid refresh token or expired");
+            }
+            return Ok(result);
         }
 
         [Authorize]
